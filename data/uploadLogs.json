@@ -1,0 +1,47 @@
+[
+  {
+    "id": 5,
+    "upload_date": "2026-05-20T09:30:19.894Z",
+    "file_type": "master",
+    "filename": "pcb_master_sample.xlsx",
+    "records_processed": 10,
+    "status": "success",
+    "error_msg": null
+  },
+  {
+    "id": 4,
+    "upload_date": "2026-05-20T09:30:15.061Z",
+    "file_type": "sale",
+    "filename": "sale_data_sample.xlsx",
+    "records_processed": 80,
+    "status": "success",
+    "error_msg": null
+  },
+  {
+    "id": 3,
+    "upload_date": "2026-05-20T09:30:10.069Z",
+    "file_type": "transit",
+    "filename": "transit_data_sample.xlsx",
+    "records_processed": 5,
+    "status": "success",
+    "error_msg": null
+  },
+  {
+    "id": 2,
+    "upload_date": "2026-05-20T09:30:04.556Z",
+    "file_type": "stock",
+    "filename": "stock_data_sample.xlsx",
+    "records_processed": 11,
+    "status": "success",
+    "error_msg": null
+  },
+  {
+    "id": 1,
+    "upload_date": "2026-05-20T09:29:50.846Z",
+    "file_type": "stock",
+    "filename": "pcb_master_sample.xlsx",
+    "records_processed": 0,
+    "status": "success",
+    "error_msg": null
+  }
+]

@@ -1,0 +1,14 @@
+{
+  "1300": {"name": "DHR", "lead_time": 2, "group": "lead_time_2"},
+  "1600": {"name": "BWL", "lead_time": 2, "group": "lead_time_2"},
+  "3200": {"name": "BLR", "lead_time": 10, "group": "lead_time_10"},
+  "4100": {"name": "SAND I", "lead_time": 7, "group": "lead_time_7"},
+  "2400": {"name": "SAND II", "lead_time": 7, "group": "lead_time_7"},
+  "1800": {"name": "HDR", "lead_time": 4, "group": "lead_time_4"},
+  "1700": {"name": "PANT", "lead_time": 4, "group": "lead_time_4"},
+  "9400": {"name": "LATL PANT", "lead_time": 4, "group": "lead_time_4"},
+  "2100": {"name": "CHINWAD", "lead_time": 7, "group": "lead_time_7"},
+  "2300": {"name": "CHAKN 2", "lead_time": 7, "group": "lead_time_7"},
+  "2200": {"name": "CHAKN 3", "lead_time": 7, "group": "lead_time_7"},
+  "7400": {"name": "LATL-CHAKAN", "lead_time": 7, "group": "lead_time_7"}
+}

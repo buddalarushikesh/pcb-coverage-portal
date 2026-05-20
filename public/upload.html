@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Data - PCB Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+ padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            margin-bottom: 10px;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .nav-btn {
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .upload-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .upload-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-top: 4px solid #667eea;
+        }
+        
+        .upload-card h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .upload-card p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .file-input-wrapper {
+            margin: 15px 0;
+        }
+        
+        .file-input-wrapper input {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .upload-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        
+        .upload-btn:hover {
+            background: #5a67d8;
+        }
+        
+        .status-msg {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        
+        .calculate-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: white;
+        }
+        
+        .calculate-btn {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: transform 0.3s;
+        }
+        
+        .calculate-btn:hover {
+            background: #45a049;
+            transform: scale(1.05);
+        }
+        
+        .log-table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .log-table h3 {
+            padding: 20px;
+            background: #f5f5f5;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        th {
+            background: #fafafa;
+            font-weight: 600;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        
+        .badge-success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .badge-error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📤 PCB Data Upload Center</h1>
+            <p>Upload SAP export files to update stock coverage status</p>
+            <div class="nav-buttons">
+                <a href="/" class="nav-btn">📊 Dashboard</a>
+                <a href="/status.html" class="nav-btn">📋 Status Table</a>
+                <a href="/upload.html" class="nav-btn">📤 Upload Data</a>
+            </div>
+        </header>
+        
+        <div class="upload-grid">
+            <!-- Stock Data Upload -->
+            <div class="upload-card">
+                <h3>📦 1. Stock Data (MB52 Report)</h3>
+                <p>Upload SAP MB52 stock report with columns: Plant, Material, Storage Location, Unrestricted</p>
+                <div class="file-input-wrapper">
+                    <input type="file" id="stockFile" accept=".xlsx,.xls,.xlsm">
+                </div>
+                <button class="upload-btn" onclick="uploadFile('stock')">📤 Upload Stock Data</button>
+                <div id="stockStatus" class="status-msg"></div>
+            </div>
+            
+            <!-- Transit Stock Upload -->
+            <div class="upload-card">
+                <h3>🚚 2. Transit Stock (STO Report)</h3>
+                <p>Upload STO report with columns: Row Labels (PlantMaterial key), Sum of Quantity</p>
+                <div class="file-input-wrapper">
+                    <input type="file" id="transitFile" accept=".xlsx,.xls,.xlsm">
+                </div>
+                <button class="upload-btn" onclick="uploadFile('transit')">📤 Upload Transit Data</button>
+                <div id="transitStatus" class="status-msg"></div>
+            </div>
+            
+            <!-- Sale Data Upload -->
+            <div class="upload-card">
+                <h3>💰 3. Sale/Dispatch Data</h3>
+                <p>Upload billing report with columns: Material No., Plant Name, Qty, Date of Invoice</p>
+                <div class="file-input-wrapper">
+                    <input type="file" id="saleFile" accept=".xlsx,.xls,.xlsm">
+                </div>
+                <button class="upload-btn" onclick="uploadFile('sale')">📤 Upload Sale Data</button>
+                <div id="saleStatus" class="status-msg"></div>
+            </div>
+            
+            <!-- PCB Master Upload -->
+            <div class="upload-card">
+                <h3>📋 4. PCB Master List</h3>
+                <p>Upload PCB master with columns: Item_PCB, Plant Code, Description, ST (annual plan)</p>
+                <div class="file-input-wrapper">
+                    <input type="file" id="masterFile" accept=".xlsx,.xls,.xlsm">
+                </div>
+                <button class="upload-btn" onclick="uploadFile('master')">📤 Upload Master List</button>
+                <div id="masterStatus" class="status-msg"></div>
+            </div>
+        </div>
+        
+        <div class="calculate-section">
+            <h2>🔄 Calculate Coverage Status</h2>
+            <p>After uploading all files, click below to calculate coverage days and status classification</p>
+            <button class="calculate-btn" onclick="calculateStatus()">🚀 Recalculate Coverage Status</button>
+            <div id="calculateStatus" class="status-msg" style="margin-top:20px;"></div>
+        </div>
+        
+        <div class="log-table">
+            <h3>📋 Recent Upload History</h3>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date & Time</th>
+                            <th>File Type</th>
+                            <th>Filename</th>
+                            <th>Records</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="logTableBody">
+                        <tr><td colspan="5" style="text-align: center;">No upload history yet</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        async function uploadFile(type) {
+            let fileInput, statusDiv, endpoint;
+            
+            if (type === 'stock') {
+                fileInput = document.getElementById('stockFile');
+                statusDiv = document.getElementById('stockStatus');
+                endpoint = '/api/upload/stock';
+            } else if (type === 'transit') {
+                fileInput = document.getElementById('transitFile');
+                statusDiv = document.getElementById('transitStatus');
+                endpoint = '/api/upload/transit';
+            } else if (type === 'sale') {
+                fileInput = document.getElementById('saleFile');
+                statusDiv = document.getElementById('saleStatus');
+                endpoint = '/api/upload/sale';
+            } else if (type === 'master') {
+                fileInput = document.getElementById('masterFile');
+                statusDiv = document.getElementById('masterStatus');
+                endpoint = '/api/upload/master';
+            }
+            
+            const file = fileInput.files[0];
+            if (!file) {
+                statusDiv.innerHTML = '❌ Please select a file first';
+                statusDiv.className = 'status-msg error';
+                return;
+            }
+            
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            statusDiv.innerHTML = '⏳ Uploading and processing...';
+            statusDiv.className = 'status-msg info';
+            
+            try {
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    statusDiv.innerHTML = `✅ ${result.message || 'Success!'} ${result.records || 0} records processed.`;
+                    statusDiv.className = 'status-msg success';
+                    loadUploadLog(); // Refresh log
+                    
+                    // Clear file input
+                    fileInput.value = '';
+                } else {
+                    throw new Error(result.error || 'Upload failed');
+                }
+            } catch (error) {
+                statusDiv.innerHTML = `❌ Upload failed: ${error.message}`;
+                statusDiv.className = 'status-msg error';
+            }
+        }
+        
+        async function calculateStatus() {
+            const statusDiv = document.getElementById('calculateStatus');
+            statusDiv.innerHTML = '⏳ Calculating coverage status for all PCBs...';
+            statusDiv.className = 'status-msg info';
+            
+            try {
+                const response = await fetch('/api/calculate', {
+                    method: 'POST'
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    statusDiv.innerHTML = `✅ ${result.message || 'Calculation complete!'} ${result.calculated || 0} items processed.`;
+                    statusDiv.className = 'status-msg success';
+                    
+                    // Show success message and redirect option
+                    setTimeout(() => {
+                        if (confirm('Calculation complete! View dashboard now?')) {
+                            window.location.href = '/';
+                        }
+                    }, 1000);
+                } else {
+                    throw new Error(result.error || 'Calculation failed');
+                }
+            } catch (error) {
+                statusDiv.innerHTML = `❌ Calculation failed: ${error.message}`;
+                statusDiv.className = 'status-msg error';
+            }
+        }
+        
+        async function loadUploadLog() {
+            try {
+                const response = await fetch('/api/uploads/log');
+                const logs = await response.json();
+                
+                const tbody = document.getElementById('logTableBody');
+                if (!logs || logs.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" style="text-align: center;">No upload history yet</td></tr>';
+                    return;
+                }
+                
+                tbody.innerHTML = '';
+                logs.forEach(log => {
+                    const row = tbody.insertRow();
+                    row.insertCell(0).textContent = new Date(log.upload_date).toLocaleString();
+                    row.insertCell(1).textContent = log.file_type.toUpperCase();
+                    row.insertCell(2).textContent = log.filename || '-';
+                    row.insertCell(3).textContent = log.records_processed || 0;
+                    row.insertCell(4).innerHTML = `<span class="badge ${log.status === 'success' ? 'badge-success' : 'badge-error'}">${log.status}</span>`;
+                });
+            } catch (error) {
+                console.error('Error loading logs:', error);
+            }
+        }
+        
+        // Load log on page load
+        loadUploadLog();
+        // Refresh log every 10 seconds
+        setInterval(loadUploadLog, 10000);
+    </script>
+</body>
+</html>

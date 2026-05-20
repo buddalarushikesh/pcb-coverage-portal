@@ -1,0 +1,82 @@
+{
+  "130000PCB001": {
+    "unrestricted": 700,
+    "snapshot_date": "2026-05-20",
+    "plant": "1300",
+    "material": "PCB001"
+  },
+  "160000PCB002": {
+    "unrestricted": 300,
+    "snapshot_date": "2026-05-20",
+    "plant": "1600",
+    "material": "PCB002"
+  },
+  "320000PCB003": {
+    "unrestricted": 150,
+    "snapshot_date": "2026-05-20",
+    "plant": "3200",
+    "material": "PCB003"
+  },
+  "410000PCB004": {
+    "unrestricted": 80,
+    "snapshot_date": "2026-05-20",
+    "plant": "4100",
+    "material": "PCB004"
+  },
+  "240000PCB005": {
+    "unrestricted": 450,
+    "snapshot_date": "2026-05-20",
+    "plant": "2400",
+    "material": "PCB005"
+  },
+  "180000PCB006": {
+    "unrestricted": 600,
+    "snapshot_date": "2026-05-20",
+    "plant": "1800",
+    "material": "PCB006"
+  },
+  "170000PCB007": {
+    "unrestricted": 25,
+    "snapshot_date": "2026-05-20",
+    "plant": "1700",
+    "material": "PCB007"
+  },
+  "940000PCB008": {
+    "unrestricted": 120,
+    "snapshot_date": "2026-05-20",
+    "plant": "9400",
+    "material": "PCB008"
+  },
+  "210000PCB009": {
+    "unrestricted": 90,
+    "snapshot_date": "2026-05-20",
+    "plant": "2100",
+    "material": "PCB009"
+  },
+  "230000PCB010": {
+    "unrestricted": 200,
+    "snapshot_date": "2026-05-20",
+    "plant": "2300",
+    "material": "PCB010"
+  },
+  "1300PCB001": {
+    "transit": 100,
+    "snapshot_date": "2026-05-20"
+  },
+  "1600PCB002": {
+    "transit": 50,
+    "snapshot_date": "2026-05-20"
+  },
+  "3200PCB003": {
+    "transit": 75,
+    "snapshot_date": "2026-05-20"
+  },
+  "4100PCB004": {
+    "transit": 30,
+    "snapshot_date": "2026-05-20"
+  },
+  "2400PCB005": {
+    "transit": 60,
+    "snapshot_date": "2026-05-20"
+  }
+}

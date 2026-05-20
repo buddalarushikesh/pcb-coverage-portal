@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: pcb-coverage-portal
+    runtime: node
+    buildCommand: npm install
+    startCommand: node server-excel-direct.js
+    envVars:
+      - key: NODE_VERSION
+        value: 18.17.0

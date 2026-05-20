@@ -1,0 +1,122 @@
+{
+  "130000PCB001": {
+    "item_pcb": "PCB001",
+    "plant_code": "1300",
+    "plant_name": "DHR",
+    "description": "Engine Control Unit",
+    "model": "ECU-X1",
+    "customer": "Maruti",
+    "lead_time": 2,
+    "annual_plan": 15000,
+    "perday": 50,
+    "notes": "SOP"
+  },
+  "160000PCB002": {
+    "item_pcb": "PCB002",
+    "plant_code": "1600",
+    "plant_name": "BWL",
+    "description": "Battery Management System",
+    "model": "BMS-V2",
+    "customer": "Tata",
+    "lead_time": 2,
+    "annual_plan": 12000,
+    "perday": 40,
+    "notes": "SOP"
+  },
+  "320000PCB003": {
+    "item_pcb": "PCB003",
+    "plant_code": "3200",
+    "plant_name": "BLR",
+    "description": "Infotainment System",
+    "model": "INFO-S3",
+    "customer": "Hyundai",
+    "lead_time": 10,
+    "annual_plan": 8000,
+    "perday": 26.666666666666668,
+    "notes": "SOP"
+  },
+  "410000PCB004": {
+    "item_pcb": "PCB004",
+    "plant_code": "4100",
+    "plant_name": "SAND I",
+    "description": "Dashboard Cluster",
+    "model": "DASH-M4",
+    "customer": "Mahindra",
+    "lead_time": 7,
+    "annual_plan": 10000,
+    "perday": 33.333333333333336,
+    "notes": "SOP"
+  },
+  "240000PCB005": {
+    "item_pcb": "PCB005",
+    "plant_code": "2400",
+    "plant_name": "SAND II",
+    "description": "Lighting Control",
+    "model": "LIGHT-R5",
+    "customer": "Honda",
+    "lead_time": 7,
+    "annual_plan": 9000,
+    "perday": 30,
+    "notes": "SOP"
+  },
+  "180000PCB006": {
+    "item_pcb": "PCB006",
+    "plant_code": "1800",
+    "plant_name": "HDR",
+    "description": "Power Window Module",
+    "model": "PWR-W6",
+    "customer": "Ford",
+    "lead_time": 4,
+    "annual_plan": 11000,
+    "perday": 36.666666666666664,
+    "notes": "SOP"
+  },
+  "170000PCB007": {
+    "item_pcb": "PCB007",
+    "plant_code": "1700",
+    "plant_name": "PANT",
+    "description": "Airbag Controller",
+    "model": "AIR-X7",
+    "customer": "BMW",
+    "lead_time": 4,
+    "annual_plan": 5000,
+    "perday": 16.666666666666668,
+    "notes": "SOP"
+  },
+  "940000PCB008": {
+    "item_pcb": "PCB008",
+    "plant_code": "9400",
+    "plant_name": "LATL PANT",
+    "description": "GPS Tracker",
+    "model": "GPS-T8",
+    "customer": "Toyota",
+    "lead_time": 4,
+    "annual_plan": 7000,
+    "perday": 23.333333333333332,
+    "notes": "SOP"
+  },
+  "210000PCB009": {
+    "item_pcb": "PCB009",
+    "plant_code": "2100",
+    "plant_name": "CHINWAD",
+    "description": "Climate Control",
+    "model": "CLIM-C9",
+    "customer": "Nissan",
+    "lead_time": 7,
+    "annual_plan": 6000,
+    "perday": 20,
+    "notes": "SOP"
+  },
+  "230000PCB010": {
+    "item_pcb": "PCB010",
+    "plant_code": "2300",
+    "plant_name": "CHAKN 2",
+    "description": "Parking Sensor",
+    "model": "PARK-P0",
+    "customer": "Volkswagen",
+    "lead_time": 7,
+    "annual_plan": 8000,
+    "perday": 26.666666666666668,
+    "notes": "SOP"
+  }
+}

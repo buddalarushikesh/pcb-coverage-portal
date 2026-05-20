@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCB Status Table - Lumax Industries</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .nav-btn {
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .filters {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .filter-group {
+            display: inline-block;
+            margin-right: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .filter-group label {
+            display: inline-block;
+            margin-right: 5px;
+            font-weight: 600;
+        }
+        
+        .filter-group select, .filter-group input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .export-btn {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .table-container {
+            background: white;
+            border-radius: 10px;
+            overflow-x: auto;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        th {
+            background: #fafafa;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+        
+        .very-critical { background-color: #ffebee; }
+        .potential-critical { background-color: #fff3e0; }
+        .sufficient { background-color: #e8f5e9; }
+        .high { background-color: #e3f2fd; }
+        .no-plan { background-color: #f5f5f5; }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .coverage-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        .pagination {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .pagination button {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+        }
+        
+        .pagination button:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .legend {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .legend-item {
+            display: inline-block;
+            margin-right: 20px;
+        }
+        
+        .legend-color {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 PCB Coverage Status - Detailed View</h1>
+            <div class="nav-buttons">
+                <a href="/" class="nav-btn">Dashboard</a>
+                <a href="/status.html" class="nav-btn">Status Table</a>
+                <a href="/upload.html" class="nav-btn">Upload Data</a>
+            </div>
+        </header>
+        
+        <div class="legend">
+            <strong>Status Legend:</strong>
+            <div class="legend-item"><div class="legend-color" style="background:#ffebee;"></div> Very Critical</div>
+            <div class="legend-item"><div class="legend-color" style="background:#fff3e0;"></div> Potential Critical</div>
+            <div class="legend-item"><div class="legend-color" style="background:#e8f5e9;"></div> Sufficient</div>
+            <div class="legend-item"><div class="legend-color" style="background:#e3f2fd;"></div> High</div>
+            <div class="legend-item"><div class="legend-color" style="background:#f5f5f5;"></div> No Plan</div>
+        </div>
+        
+        <div class="filters">
+            <div class="filter-group">
+                <label>Plant:</label>
+                <select id="plantFilter">
+                    <option value="">All Plants</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Status:</label>
+                <select id="statusFilter">
+                    <option value="">All Status</option>
+                    <option value="Very Critical">Very Critical</option>
+                    <option value="Potential Critical">Potential Critical</option>
+                    <option value="Sufficient">Sufficient</option>
+                    <option value="High">High</option>
+                    <option value="No Plan">No Plan</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Search:</label>
+                <input type="text" id="searchFilter" placeholder="Item PCB / Description">
+            </div>
+            <div class="filter-group">
+                <button class="export-btn" onclick="exportToExcel()">📥 Export to Excel</button>
+            </div>
+        </div>
+        
+        <div class="table-container">
+            <table id="statusTable">
+                <thead>
+                    <tr>
+                        <th>Item PCB</th>
+                        <th>Description</th>
+                        <th>Model</th>
+                        <th>Customer</th>
+                        <th>Plant</th>
+                        <th>Perday</th>
+                        <th>Stock</th>
+                        <th>Transit</th>
+                        <th>Final Stock</th>
+                        <th>Coverage Days</th>
+                        <th>Status</th>
+                        <th>Asking Rate</th>
+                    </tr>
+                </thead>
+                <tbody id="statusTableBody">
+                    <tr>
+                        <td colspan="12" style="text-align: center;">No data available. Please upload files.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="pagination" id="pagination"></div>
+    </div>
+    
+    <script>
+        let currentPage = 1;
+        let totalPages = 1;
+        
+        async function loadPlants() {
+            const response = await fetch('/api/plants');
+            const plants = await response.json();
+            const select = document.getElementById('plantFilter');
+            for (const [code, plant] of Object.entries(plants)) {
+                const option = document.createElement('option');
+                option.value = code;
+                option.textContent = `${code} - ${plant.name}`;
+                select.appendChild(option);
+            }
+        }
+        
+        async function loadStatus() {
+            const plant = document.getElementById('plantFilter').value;
+            const status = document.getElementById('statusFilter').value;
+            const search = document.getElementById('searchFilter').value;
+            
+            const response = await fetch(`/api/status?page=${currentPage}&plant=${plant}&status=${status}&search=${search}`);
+            const data = await response.json();
+            
+            if (data.success && data.data) {
+                renderTable(data.data);
+                totalPages = data.totalPages || 1;
+                renderPagination();
+            }
+        }
+        
+        function renderTable(data) {
+            const tbody = document.getElementById('statusTableBody');
+            if (!data || data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="12" style="text-align: center;">No data available</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = '';
+            data.forEach(item => {
+                const row = tbody.insertRow();
+                row.className = getStatusClass(item.remarks);
+                
+                row.insertCell(0).textContent = item.item_pcb || '-';
+                row.insertCell(1).textContent = item.description || '-';
+                row.insertCell(2).textContent = item.model || '-';
+                row.insertCell(3).textContent = item.customer || '-';
+                row.insertCell(4).textContent = `${item.plant_code} - ${item.plant_name || ''}`;
+                row.insertCell(5).textContent = item.perday?.toFixed(2) || '-';
+                row.insertCell(6).textContent = item.stock?.toFixed(0) || '0';
+                row.insertCell(7).textContent = item.transit?.toFixed(0) || '0';
+                row.insertCell(8).textContent = item.final_stock?.toFixed(0) || '0';
+                row.insertCell(9).innerHTML = `<span class="coverage-badge">${item.coverage_days?.toFixed(1) || '-'}</span>`;
+                row.insertCell(10).innerHTML = `<span class="status-badge">${item.remarks || '-'}</span>`;
+                row.insertCell(11).textContent = item.asking_rate || '-';
+                
+                // Add click to go to detail page
+                row.style.cursor = 'pointer';
+                row.onclick = () => {
+                    window.location.href = `/detail.html?item=${item.item_pcb}&plant=${item.plant_code}`;
+                };
+            });
+        }
+        
+        function getStatusClass(status) {
+            switch(status) {
+                case 'Very Critical': return 'very-critical';
+                case 'Potential Critical': return 'potential-critical';
+                case 'Sufficient': return 'sufficient';
+                case 'High': return 'high';
+                default: return 'no-plan';
+            }
+        }
+        
+        function renderPagination() {
+            const paginationDiv = document.getElementById('pagination');
+            paginationDiv.innerHTML = '';
+            
+            if (currentPage > 1) {
+                const prevBtn = document.createElement('button');
+                prevBtn.textContent = 'Previous';
+                prevBtn.onclick = () => { currentPage--; loadStatus(); };
+                paginationDiv.appendChild(prevBtn);
+            }
+            
+            const pageSpan = document.createElement('span');
+            pageSpan.textContent = `Page ${currentPage} of ${totalPages}`;
+            pageSpan.style.padding = '8px';
+            paginationDiv.appendChild(pageSpan);
+            
+            if (currentPage < totalPages) {
+                const nextBtn = document.createElement('button');
+                nextBtn.textContent = 'Next';
+                nextBtn.onclick = () => { currentPage++; loadStatus(); };
+                paginationDiv.appendChild(nextBtn);
+            }
+        }
+        
+        function exportToExcel() {
+            const plant = document.getElementById('plantFilter').value;
+            const status = document.getElementById('statusFilter').value;
+            const search = document.getElementById('searchFilter').value;
+            window.location.href = `/api/export/excel?plant=${plant}&status=${status}&search=${search}`;
+        }
+        
+        // Event listeners
+        document.getElementById('plantFilter').addEventListener('change', () => { currentPage = 1; loadStatus(); });
+        document.getElementById('statusFilter').addEventListener('change', () => { currentPage = 1; loadStatus(); });
+        document.getElementById('searchFilter').addEventListener('input', () => { currentPage = 1; loadStatus(); });
+        
+        // Initialize
+        loadPlants();
+        loadStatus();
+    </script>
+</body>
+</html>
